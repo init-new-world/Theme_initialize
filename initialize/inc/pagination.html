@@ -1,0 +1,39 @@
+<ul class="pagination">
+    {% if pagination.currentPage > 1 %}
+        {% set prev = pagination.currentPage - 1 %}
+        <li class='page-item' style="width:10%;text-align:center;">
+            <a class="page-link" href="{{prev | pagination(ctx.url)}}">&laquo;</a>
+        </li>
+    {% else %}
+        <li class='page-item disabled' style="width:10%;text-align:center;">
+            <a class="page-link" href="#" class="prev">&laquo;</a>
+        </li>
+    {% endif %}
+    {% if pagination.currentPage >= 1 %}
+    <li class="page-item" style="width:80%;text-align:center;">
+        <a class="page-link" href="/archives">
+            <div class="progress" style="height:20px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{pagination.currentPage/pagination.totalPages*100}}%;">{{pagination.currentPage}}/{{pagination.totalPages}}页</div>
+            </div>
+        </a>
+    </li>
+    {% else %}
+    <li class="page-item" style="width:80%;text-align:center;">
+        <a class="page-link" href="/archives">
+            <div class="progress" style="height:20px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%;">文章归档</div>
+            </div>
+        </a>
+    </li>
+    {% endif %}
+    {% if pagination.currentPage < pagination.totalPages %}
+        {% set next = pagination.currentPage + 1 %}
+        <li class='page-item' style="width:10%;text-align:center;">
+            <a class="page-link" href="{{next | pagination(ctx.url)}}">&raquo;</a>
+        </li>
+    {% else %}
+        <li class='page-item disabled' style="width:10%;text-align:center;">
+            <a class="page-link" href="#">&raquo;</a>
+        </li>
+    {% endif %}
+</ul>

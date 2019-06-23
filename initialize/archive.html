@@ -1,0 +1,32 @@
+{% extends './layout.html' %}
+
+{% block title -%}
+归档 - {{options.title}}
+{%- endblock %}
+
+{% block headers -%}
+<link rel="canonical" href="{{site_url}}/archives" />
+{%- endblock %}
+
+{% block content %}
+<h1 class="title">归档</h1>
+{% for yearMonth,data in list%}
+<div class="container">
+    <h3>{{yearMonth}} ({{data.length}})</h3>
+    <table class="table table-hover">
+    <thead>
+        <th>文章</th>
+        <th>时间</th>
+    </thead>
+    <tbody>
+    {% for item in data %}
+    <tr>
+        <td><a href="/post/{{item.pathname}}.html" title="{{item.title}}">{{item.title}}</a></td>
+        <td>{{think.datetime(item.create_time, 'YYYY-MM-DD')}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endfor %}
+{% endblock %}
