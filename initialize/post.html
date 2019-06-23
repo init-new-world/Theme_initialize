@@ -18,7 +18,7 @@
             </div>
         </div>
         <h1 class="title">{{post.title}}</h1>
-        {{post.content | replace(r/(<img src="([^"]+)" alt="([^"]*)"\s?\/?>)/g, '<img class="lazy-load" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="$2" alt="$3"><noscript>$1</noscript>') | safe}}
+        {{post.content | safe}}
         <p>本文链接：<a href="{{site_url + ctx.url | safe}}">{{site_url + ctx.url | safe}}</a></p>
         <div class="post-info">
             <p>
@@ -72,7 +72,7 @@
             {% endif %}
             {% if post.next.title %}
             <li class="page-item" style="width:50%;text-align:center;">
-                <a class="page-link" href="/post/{{ post.next.pathname }}.html" class="prev">{{ post.next.title }} &raquo;</a>
+                <a class="page-link" href="/post/{{ post.next.pathname }}.html">{{ post.next.title }} &raquo;</a>
             </li>
             {% else %}
             <li class="page-item disabled" style="width:50%;text-align:center;">
