@@ -1,0 +1,18 @@
+{% extends './layout.html' %}
+
+{% block title -%}
+标签 - {{options.title}}
+{%- endblock %}
+
+{% block headers -%}
+<link rel="canonical" href="{{site_url}}/tags" />
+{%- endblock %}
+
+{% block content %}
+<h1>标签</h1>
+  <h5>
+    {% for tag in tags %}
+    <a href="/tag/{{tag.pathname}}" data-tag="{{tag.name}}"><button type="button" class="btn btn-dark">{{tag.name}}({{tag.count}})</button></a>
+    {% endfor %}
+  </h5>
+{% endblock %}
