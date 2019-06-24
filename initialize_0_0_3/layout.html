@@ -129,7 +129,7 @@
     </a>   
 </div>
 <div id="canvas-nest" class="container-fluid" style="min-height:calc(100vh - 365px);">
-    <div class="container" style="min-height:calc(100vh - 485px);">
+    <div class="container" style="min-height:calc(100vh - 525px);">
         {% block content %}
         
         {% endblock %}
@@ -151,6 +151,10 @@
             {%else%}
                 &nbsp;-&nbsp;<a href="/">{{ctx.hostname}}</a>
             {% endif %}
+            <br />
+            Powered by&nbsp;<a target="_blank" href="https://thinkjs.org">ThinkJS</a>&nbsp;&amp;&nbsp;<a target="_blank" rel="nofollow" class="external" href="https://firekylin.org">FireKylin {{VERSION}}</a>
+            <br />
+            Theme by&nbsp;<a target="_blank" href="https://github.com/init-new-world/Theme_initialize">initialize</a>
         </div>
     </footer>
 </div>

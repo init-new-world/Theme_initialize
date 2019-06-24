@@ -78,9 +78,12 @@
             <a class="page-link" href="#">没有下一篇了~</a>
         </li>
         {% endif %}
-     </ul>
+    </ul>
     {% if post.allow_comment %}
         {% include "./inc/comment.html" %}
     {% endif %}
 </div>
+{% endblock %}
+{% block pagination %}
+<div class="container" style="min-height:13px;"></div>
 {% endblock %}
