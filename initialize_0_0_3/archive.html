@@ -9,24 +9,26 @@
 {%- endblock %}
 
 {% block content %}
+<article class="markdown-body">
 <h1 class="title">归档</h1>
+</article>
 {% for yearMonth,data in list%}
-<div class="container">
-    <h3>{{yearMonth}} ({{data.length}})</h3>
-    <table class="table table-hover">
-    <thead>
-        <th>文章</th>
-        <th>时间</th>
-    </thead>
-    <tbody>
-    {% for item in data %}
-    <tr>
-        <td><a href="/post/{{item.pathname}}.html" title="{{item.title}}">{{item.title}}</a></td>
-        <td>{{think.datetime(item.create_time, 'YYYY-MM-DD')}}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-    </table>
-</div>
+    <div class="container">
+        <h3>{{yearMonth}} ({{data.length}})</h3>
+        <table class="table table-hover">
+            <thead>
+                <th>文章</th>
+                <th>时间</th>
+            </thead>
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    <td><a href="/post/{{item.pathname}}.html" title="{{item.title}}">{{item.title}}</a></td>
+                    <td>{{think.datetime(item.create_time, 'YYYY-MM-DD')}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endfor %}
 {% endblock %}
