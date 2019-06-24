@@ -1,0 +1,62 @@
+{% extends './layout.html' %}
+
+{% block title -%}
+站内搜索 - {{options.title}}
+{%- endblock %}
+
+{% block headers -%}
+<link rel="canonical" href="{{site_url}}/search.html{% if keyword %}?keyword={{keyword}}{% endif %}{% if pagination.currentPage > 1 %}&amp;page={{pagination.currentPage}}{% endif %}" />
+{%- endblock %}
+
+{% block content %}
+<h1>站内搜索</h1>
+<form class="form-inline" action="/search.html">
+    <label for="search">搜索内容:</label>
+    <input class="form-control" maxlength="80" placeholder="请输入关键字..." id="keyword" name="keyword" value="{{ keyword }}" type="search" required />
+    <button class="btn btn-primary" type="submit">搜索</button>
+</form>
+<hr>
+{% if keyword %}
+    <div class="card">
+    {% if searchData.count %}
+        <div class="card bg-success text-white">
+            <div class="card-body">本次搜索找到结果 {{ searchData.count }} 条</div>
+            </div>
+        </div>
+        <div id="accordion">
+            {% for item in searchData.data %}
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#{{ item.pathname }}">{{ item.title | safe }}</a>
+                    <a href="/post/{{ item.pathname }}.html"><button type="button" class="btn btn-info">阅读全文</button></a>
+                </div>
+                <div id="{{ item.pathname }}" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <article class="markdown-body">{{ item.summary |safe }}</article>
+                    </div>
+                </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if not searchData.count %}
+        <div class="card bg-danger text-white">
+            <div class="card-body">没有找到任何结果,请更换查询词试试~<br>
+                或者试试Google站内搜索:
+                <a target="_blank" href="https://www.google.com/#q={{ ('site:' + ctx.hostname + ' ' + keyword)|urlencode }}">site:{{ctx.hostname}} {{ keyword }}</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% else %}
+    <h5>
+    热搜词：
+    {% for tag in hotTags %}
+        <a href="?keyword={{ tag.name }}"><button type="button" class="btn btn-dark">{{ tag.name }}</button></a>
+    {% endfor %}
+    </h5>
+{% endif %}
+{% endblock %}
+{% block pagination %}
+{% include "./inc/pagination.html" %}
+{% endblock %}
