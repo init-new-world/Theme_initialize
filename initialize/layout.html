@@ -7,11 +7,6 @@
     <link rel="icon" href="{{options.favicon_url |default('/static/img/firekylin.jpg')}}">
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.html">
     <link rel=search type="application/opensearchdescription+xml" href="/opensearch.xml" title="{{options.title}}">
-    <script src="/theme/{{options.theme}}/res/js/jquery.min.js"></script>
-    <script src="/theme/{{options.theme}}/res/js/bootstrap.bundle.min.js"></script>
-    <script src="/theme/{{options.theme}}/res/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
     <link href="/theme/{{options.theme}}/res/css/bootstrap.min.css" rel="stylesheet">
     <link href="/theme/{{options.theme}}/res/css/github-markdown.css" rel="stylesheet">
     <link href="/theme/{{options.theme}}/res/css/font-awesome.min.css" rel="stylesheet">
@@ -19,11 +14,11 @@
     <link href="/theme/{{options.theme}}/res/css/styles/solarized-light.css" rel="stylesheet">
     {% if options.keywords %}<meta name="keywords" content="{{options.keywords}}">{% endif %}
     {% if options.description %}<meta name="description" content="{{options.description}}">{% endif %}
-    {%- block headers %}{% endblock -%}
+    {% block headers %}{% endblock %}
     {% set lscookie = 'lscookie'%}
     {% if themeConfig.customCSS %}<style>{{themeConfig.customCSS | safe}}</style>{% endif %}
 </head>
-<body style="margin-top:65px;">
+<body style="margin-top:65px;min-height:calc(100vh - 65px);">
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
 <div class="container">
     <a class="navbar-brand" href="/">
@@ -133,30 +128,45 @@
         <span class="carousel-control-next-icon"></span>
     </a>   
 </div>
-<div class="container">
-    {% block content %}
+<div id="canvas-nest" class="container-fluid" style="min-height:calc(100vh - 365px);">
+    <div class="container" style="min-height:calc(100vh - 525px);">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+    {% block pagination %}
 
     {% endblock %}
-<footer class="navbar-fixed-bottom" style="text-align:center;">
-    <div class="container">
-        <hr>
-        &copy; {{ currentYear }}&nbsp;-&nbsp; {{options.title}}
-        {% if options.miitbeian or options.mpsbeian %}
-            {% if options.miitbeian %}
-                &nbsp;-&nbsp;<a target="_blank" rel="nofollow" class="external beian" href="http://www.miitbeian.gov.cn/">{{options.miitbeian}}</a>
+    <footer class="navbar-fixed-bottom" style="text-align:center;max-height:100px;min-height:50px;">
+        <div class="container">
+            <hr>
+            &copy; {{ currentYear }}&nbsp;-&nbsp; {{options.title}}
+            {% if options.miitbeian or options.mpsbeian %}
+                {% if options.miitbeian %}
+                    &nbsp;-&nbsp;<a target="_blank" rel="nofollow" class="external beian" href="http://beian.miit.gov.cn/">{{options.miitbeian}}</a>
+                {% endif %}
+                {% if options.mpsbeian %}
+                     &nbsp;-&nbsp;<a target="_blank" rel="nofollow" class="external beian" href="http://www.beian.gov.cn/">{{options.mpsbeian}}</a>
+                {% endif %}
+            {%else%}
+                &nbsp;-&nbsp;<a href="/">{{ctx.hostname}}</a>
             {% endif %}
-            {% if options.mpsbeian %}
-                &nbsp;-&nbsp;<a target="_blank" rel="nofollow" class="external beian" href="http://www.beian.gov.cn/">{{options.mpsbeian}}</a>
-            {% endif %}
-        {%else%}
-            &nbsp;-&nbsp;<a href="/">{{ctx.hostname}}</a>
-        {% endif %}
-    </div>
-</footer>
+            <br />
+            Powered by&nbsp;<a target="_blank" href="https://thinkjs.org">ThinkJS</a>&nbsp;&amp;&nbsp;<a target="_blank" rel="nofollow" class="external" href="https://firekylin.org">FireKylin {{VERSION}}</a>
+            <br />
+            Theme by&nbsp;<a target="_blank" href="https://github.com/init-new-world/Theme_initialize">initialize</a>
+        </div>
+    </footer>
 </div>
 {% if options.analyze_code %}
   {{options.analyze_code | safe}}
 {% endif %}
 {% if themeConfig.customJS %}<script>{{themeConfig.customJS | safe}}</script>{% endif %}
+<script type="text/javascript" src="/theme/{{options.theme}}/res/js/jquery.min.js"></script>
+<script type="text/javascript" src="/theme/{{options.theme}}/res/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/theme/{{options.theme}}/res/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="/theme/{{options.theme}}/res/js/canvas-nest.js"></script>
 </body>
 </html>
