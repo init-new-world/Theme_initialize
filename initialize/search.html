@@ -21,7 +21,6 @@
     {% if searchData.count %}
         <div class="card bg-success text-white">
             <div class="card-body">本次搜索找到结果 {{ searchData.count }} 条</div>
-            </div>
         </div>
         <div id="accordion">
             {% for item in searchData.data %}
@@ -35,7 +34,8 @@
                         <article class="markdown-body">{{ item.summary |safe }}</article>
                     </div>
                 </div>
-        {% endfor %}
+            </div>
+            {% endfor %}
         </div>
     </div>
     {% endif %}
